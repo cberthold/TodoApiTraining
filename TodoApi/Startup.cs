@@ -33,7 +33,9 @@ namespace TodoApi
             {
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
+
             services.AddScoped<GetAllTodoItemsService>();
+            services.AddScoped<UpdateTodoItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

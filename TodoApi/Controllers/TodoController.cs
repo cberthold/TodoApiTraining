@@ -17,11 +17,13 @@ namespace TodoApi.Controllers
     {
         private readonly TodoContext context;
         private readonly GetAllTodoItemsService getAllservice;
+        private readonly UpdateTodoItemService updateService;
 
-        public TodoController(TodoContext context, GetAllTodoItemsService getAllservice)
+        public TodoController(TodoContext context, GetAllTodoItemsService getAllservice, UpdateTodoItemService servicePut)
         {
             this.context = context;
             this.getAllservice = getAllservice;
+            this.updateService = servicePut;
         }
 
         // GET api/values
@@ -73,8 +75,7 @@ namespace TodoApi.Controllers
                 IsDone = value.IsDone,
             };
 
-            var service = new UpdateTodoItemService(context);
-            service.Handle(command);
+            updateService.Handle(command);
         }
 
         // DELETE api/values/5
