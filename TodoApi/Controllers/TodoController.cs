@@ -18,9 +18,13 @@ namespace TodoApi.Controllers
         private readonly TodoContext context;
         private readonly GetAllTodoItemsService getAllservice;
         private readonly UpdateTodoItemService updateService;
+        private readonly GetTodoItemService getToDoService;
 
-        public TodoController(TodoContext context, GetAllTodoItemsService getAllservice, UpdateTodoItemService servicePut)
+
+        public TodoController(TodoContext context,GetTodoItemService getToDoService, GetAllTodoItemsService getAllservice, UpdateTodoItemService servicePut)
+
         {
+            this.getToDoService = getToDoService;
             this.context = context;
             this.getAllservice = getAllservice;
             this.updateService = servicePut;
@@ -43,9 +47,8 @@ namespace TodoApi.Controllers
             {
                 Id = id,
             };
-
-            var service = new GetTodoItemService(context);
-            var item = service.Handle(command);
+            
+            var item = getToDoService.Handle(command);
             return Ok(item);
         }
 
