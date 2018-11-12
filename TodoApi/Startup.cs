@@ -35,8 +35,12 @@ namespace TodoApi
             });
             services.AddScoped<DeleteTodoItemService>();
 
+            services.AddScoped<GetTodoItemService>();
+
+
             services.AddScoped<GetAllTodoItemsService>();
             services.AddScoped<UpdateTodoItemService>();
+            services.AddScoped<CreateTodoItemService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

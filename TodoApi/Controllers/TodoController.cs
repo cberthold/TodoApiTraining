@@ -17,19 +17,25 @@ namespace TodoApi.Controllers
     {
         private readonly TodoContext context;
         private readonly DeleteTodoItemService delService;
+        private readonly CreateTodoItemService createTodoItemService;
         private readonly GetAllTodoItemsService getAllservice;
         private readonly UpdateTodoItemService updateService;
+        private readonly GetTodoItemService getToDoService;
 
-        public TodoController(TodoContext context, 
+        public TodoController(  TodoContext context, 
                                 GetAllTodoItemsService getAllservice, 
                                 UpdateTodoItemService servicePut,
-                                DeleteTodoItemService delService )
+                                DeleteTodoItemService delService,
+                                CreateTodoItemService createTodoItemService)
         
+
         {
+            this.getToDoService = getToDoService;
             this.context = context;
             this.delService = delService;
             this.getAllservice = getAllservice;
             this.updateService = servicePut;
+            this.createTodoItemService = createTodoItemService;
         }
 
         // GET api/values
@@ -49,9 +55,8 @@ namespace TodoApi.Controllers
             {
                 Id = id,
             };
-
-            var service = new GetTodoItemService(context);
-            var item = service.Handle(command);
+            
+            var item = getToDoService.Handle(command);
             return Ok(item);
         }
 
@@ -64,9 +69,7 @@ namespace TodoApi.Controllers
                 Description = value.Description,
                 IsDone = value.IsDone,
             };
-
-            var service = new CreateTodoItemService(context);
-            var id = service.Handle(command);
+            var id = createTodoItemService.Handle(command);
             return id;
         }
 
