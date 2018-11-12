@@ -47,9 +47,17 @@ namespace TodoApi.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] TodoItem value)
+        public Guid Post([FromBody] TodoItem value)
         {
+            var command = new CreateTodoItem
+            {
+                Description = value.Description,
+                IsDone = value.IsDone,
+            };
 
+            var service = new CreateTodoItemService(context);
+            var id = service.Handle(command);
+            return id;
         }
 
         // PUT api/values/5
