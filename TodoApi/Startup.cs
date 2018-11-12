@@ -34,6 +34,10 @@ namespace TodoApi
                 options.UseSqlite(Configuration.GetConnectionString("DefaultConnection"));
             });
 
+            services.AddScoped<GetTodoItemService>();
+
+
+            services.AddScoped<GetAllTodoItemsService>();
             services.AddScoped<UpdateTodoItemService>();
             services.AddScoped<CreateTodoItemService>();
         }
