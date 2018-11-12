@@ -16,10 +16,12 @@ namespace TodoApi.Controllers
     public class TodoController : ControllerBase
     {
         private readonly TodoContext context;
+        private readonly GetAllTodoItemsService getAllservice;
 
-        public TodoController(TodoContext context)
+        public TodoController(TodoContext context, GetAllTodoItemsService getAllservice)
         {
             this.context = context;
+            this.getAllservice = getAllservice;
         }
 
         // GET api/values
@@ -27,8 +29,7 @@ namespace TodoApi.Controllers
         public ActionResult<IEnumerable<TodoItem>> Get()
         {
             var command = new GetAllTodoItems();
-            var service = new GetAllTodoItemsService(context);
-            var items = service.Handle(command);
+            var items = getAllservice.Handle(command);
             return Ok(items);
         }
 
