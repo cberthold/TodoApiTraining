@@ -79,6 +79,12 @@ namespace TodoApi.Controllers
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {
+            var command = new DeleteTodoItem()
+            {
+                Id = id,
+            };
+            var service = new DeleteTodoItemService(context);
+            service.Handle(command);
         }
     }
 }
