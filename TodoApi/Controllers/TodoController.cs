@@ -35,18 +35,21 @@ namespace TodoApi.Controllers
         [HttpGet("{id}")]
         public ActionResult<TodoItem> Get(Guid id)
         {
-            return new TodoItem()
+            var command = new GetTodoItem
             {
-                Id = Guid.NewGuid(),
-                Description = "Item #1",
-                IsDone = false,
+                Id = id,
             };
+
+            var service = new GetTodoItemService(context);
+            var item = service.Handle(command);
+            return Ok(item);
         }
 
         // POST api/values
         [HttpPost]
         public void Post([FromBody] TodoItem value)
         {
+
         }
 
         // PUT api/values/5
