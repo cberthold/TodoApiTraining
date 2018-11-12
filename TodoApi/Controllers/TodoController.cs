@@ -16,10 +16,13 @@ namespace TodoApi.Controllers
     public class TodoController : ControllerBase
     {
         private readonly TodoContext context;
+        private readonly CreateTodoItemService createTodoItemService;
 
-        public TodoController(TodoContext context)
+        public TodoController(TodoContext context,CreateTodoItemService createTodoItemService)
         {
+            this.createTodoItemService = createTodoItemService;
             this.context = context;
+            
         }
 
         // GET api/values
@@ -55,9 +58,7 @@ namespace TodoApi.Controllers
                 Description = value.Description,
                 IsDone = value.IsDone,
             };
-
-            var service = new CreateTodoItemService(context);
-            var id = service.Handle(command);
+            var id = createTodoItemService.Handle(command);
             return id;
         }
 
