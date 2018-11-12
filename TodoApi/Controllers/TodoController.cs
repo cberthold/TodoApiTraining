@@ -64,6 +64,15 @@ namespace TodoApi.Controllers
         [HttpPut("{id}")]
         public void Put(Guid id, [FromBody] TodoItem value)
         {
+            var command = new UpdateTodoItem
+            {
+                Id = id,
+                Description = value.Description,
+                IsDone = value.IsDone,
+            };
+
+            var service = new UpdateTodoItemService(context);
+            service.Handle(command);
         }
 
         // DELETE api/values/5
