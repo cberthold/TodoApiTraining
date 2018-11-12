@@ -8,7 +8,7 @@ namespace TodoApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class TodoController : ControllerBase
     {
         // GET api/values
         [HttpGet]
