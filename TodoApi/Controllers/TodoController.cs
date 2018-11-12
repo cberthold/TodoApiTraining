@@ -17,8 +17,11 @@ namespace TodoApi.Controllers
     {
         private readonly TodoContext context;
 
-        public TodoController(TodoContext context)
+        private readonly GetTodoItemService getToDoService;
+
+        public TodoController(TodoContext context, GetTodoItemService getToDoService)
         {
+            this.getToDoService = getToDoService;
             this.context = context;
         }
 
@@ -40,9 +43,8 @@ namespace TodoApi.Controllers
             {
                 Id = id,
             };
-
-            var service = new GetTodoItemService(context);
-            var item = service.Handle(command);
+            
+            var item = getToDoService.Handle(command);
             return Ok(item);
         }
 
