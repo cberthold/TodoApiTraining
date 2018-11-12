@@ -21,6 +21,7 @@ namespace TodoApi.Services
         {
             var todoItem = new TodoItem
             {
+                Id = Guid.NewGuid(),
                 Description = command.Description,
                 IsDone = command.IsDone,
             };
